@@ -6,7 +6,20 @@ import Traits from "./traits";
 
 function App() {
   const onInit = (editor) => {
+    console.log("global", editor);
     Traits(editor);
+
+    //update image
+    editor.on("component:update", () => {
+      const selected = editor.getSelected().attributes.src;
+      console.log(selected);
+      const element = document.getElementById("trait_image");
+      console.log(element);
+      if (element.src !== selected) {
+        element.src = selected;
+      }
+    });
+
     editor.DomComponents.addType("mj-image", {
       model: {
         defaults: {

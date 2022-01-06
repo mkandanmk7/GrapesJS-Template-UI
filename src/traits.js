@@ -11,21 +11,18 @@ export default (editor) => {
       //       { id: "url", name: "URL" },
       //       { id: "email", name: "Email" },
       //     ];
+
       const image = editor.getSelected().attributes.src;
       console.log(image);
       const el = document.createElement("div");
-      el.innerHTML = `<img src=${image} alt="image" />`;
+      el.innerHTML = `<img src=${image} id="trait_image" alt="image" height="100" width="100" />`;
       // // Create a new element container and add some content
       // const el = document.createElement("div");
       // el.innerHTML = `
       //       <select class="href-next__type">
       //         ${options
-      //           .map((opt) => `<option value="${opt.id}">${opt.name}</option>`)
-      //           .join("")}
-      //       </select>
-      //       <div class="href-next__url-inputs">
-      //         <input class="href-next__url" placeholder="Insert URL"/>
-      //       </div>
+      //
+      // </div>
       //       <div class="href-next__email-inputs">
       //         <input class="href-next__email" placeholder="Insert email"/>
       //         <input class="href-next__email-subject" placeholder="Insert subject"/>
@@ -54,4 +51,13 @@ export default (editor) => {
       return el;
     },
   });
+  // const selectd = editor.getSelected();
+  // selectd.addTrait(
+  //   {
+  //     type: "button",
+  //     name: "selBtn",
+  //     label: "selected",
+  //   },
+  //   { at: 0 }
+  // );
 };
