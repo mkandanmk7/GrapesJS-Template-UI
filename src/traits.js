@@ -1,53 +1,28 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (editor) => {
-  editor.TraitManager.addType("change-image", {
+  // editor.TraitManager.addType("new_image", {
+  //   createInput() {
+  //     const newImage = editor.getSelected().attributes.src;
+  //     console.log("selected new image src", newImage);
+  //     const el = document.createElement("div"); //new div element
+  //     el.innerHTML = `<img src=${newImage} id="new_image" height="100" width="100" alt="image" />`;
+  //     return el;
+  //   },
+  // });
+  editor.TraitManager.addType("change_image", {
     // Expects as return a simple HTML string or an HTML element
     createInput({ trait }) {
-      // Here we can decide to use properties from the trait
-      // const traitOpts = trait.get("options") || [];
-      // const options = traitOpts.length
-      //   ? traitOpts
-      //   : [
-      //       { id: "url", name: "URL" },
-      //       { id: "email", name: "Email" },
-      //     ];
-
       const image = editor.getSelected().attributes.src;
       console.log(image);
+      const modal = () => {
+        const selectedComp = editor.getSelected();
+        editor.runCommand("open-assets", {
+          target: selectedComp,
+        });
+      };
       const el = document.createElement("div");
-      el.innerHTML = `<img src=${image} id="trait_image" alt="image" height="100" width="100" />`;
-      // // Create a new element container and add some content
-      // const el = document.createElement("div");
-      // el.innerHTML = `
-      //       <select class="href-next__type">
-      //         ${options
-      //
-      // </div>
-      //       <div class="href-next__email-inputs">
-      //         <input class="href-next__email" placeholder="Insert email"/>
-      //         <input class="href-next__email-subject" placeholder="Insert subject"/>
-      //       </div>
-      //     `;
-
-      // // Let's make our content interactive
-      // const inputsUrl = el.querySelector(".href-next__url-inputs");
-      // const inputsEmail = el.querySelector(".href-next__email-inputs");
-      // const inputType = el.querySelector(".href-next__type");
-      // inputType.addEventListener("change", (ev) => {
-      //   switch (ev.target.value) {
-      //     case "url":
-      //       inputsUrl.style.display = "";
-      //       inputsEmail.style.display = "none";
-      //       break;
-      //     case "email":
-      //       inputsUrl.style.display = "none";
-      //       inputsEmail.style.display = "";
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // });
-
+      el.innerHTML = `<img src=${image}  id="trait_image" alt="image" height="100" width="100" />`;
+      el.querySelector("#trait_image").addEventListener("click", () => modal());
       return el;
     },
   });
