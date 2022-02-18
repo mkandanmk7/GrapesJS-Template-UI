@@ -5,7 +5,7 @@ import { myBlocks } from "./myBlocks";
 
 export const plugIn = (editor) => {
   myBlocks(editor);
-  traits(editor);
-  TraitComponent(editor);
-  imageUpdate(editor);
+  // traits(editor);
+  // TraitComponent(editor);
+  // imageUpdate(editor);
 };
