@@ -18,8 +18,11 @@ export const myBlocks = (editor) => {
             id: "new-tool"
         };
         const defaultToolbar = component.get("toolbar");
+        console.log(defaultToolbar)
         const isToolbarExist = defaultToolbar.find(
             (tool) => tool.command === newTool.command);
+
+            console.log("isToolbarExist",isToolbarExist)
 
         if (!isToolbarExist) {
             defaultToolbar.unshift({
