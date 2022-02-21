@@ -9,33 +9,37 @@ export const myBlocks = (editor) => {
     editor.on('component:selected', component => {
         console.log(component)
 
-        // const newTool = {
-        //     icon: "fa fa-plus-square",
-        //     title: "check Toolbar",
-        //     command: "",
-        //     id:""
-        // };
-        // const defaultToolbar = component.get("toolbar");
-        // const isToolbarExist = defaultToolbar.filter(
-        //     (tool) => tool.command === newTool.command);
 
-        //     if(!isToolbarExist){
-        //         defaultToolbar.unshift({
-        //             id:newTool.id,
-        //             attributes:{class:newTool.icon,title:newTool.title},
-        //             command:newTool.command,
-        //         })
-        //     }
+        //new Toolbar
+        const newTool = {
+            icon: "fa fa-plus-square",
+            title: "check Toolbar",
+            command: "new-tool-cmd",
+            id: "new-tool"
+        };
+        const defaultToolbar = component.get("toolbar");
+        const isToolbarExist = defaultToolbar.find(
+            (tool) => tool.command === newTool.command);
+
+        if (!isToolbarExist) {
+            defaultToolbar.unshift({
+                id: newTool.id,
+                attributes: { class: newTool.icon, title: newTool.title },
+                command: newTool.command,
+            })
+            component.set("toolbar", defaultToolbar);
+
+        }
 
 
         //hide toolbar
-        const toggleToolbar = (val) => {
-            let value;
-            if (val === "show") value = "auto";
-
-            else if (val === "hide") value = "1000000px"
+        const toggleToolbar = (action) => {
+            const toggle = {
+                "show": "auto",
+                "hide": "100000px",
+            }
             $('.gjs-toolbar').each(function () {
-                this.style.right = value;
+                this.style.right = toggle[action];
             })
         };
 
