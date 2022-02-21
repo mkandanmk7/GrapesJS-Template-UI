@@ -4,9 +4,10 @@ export const myBlocks = (editor) => {
 
     const $ = editor.$;
 
-    console.log("editor:", editor);
-    let selectedCompId;
+    // console.log("editor:", editor);
+
     editor.on('component:selected', component => {
+        console.log(component)
 
         // const newTool = {
         //     icon: "fa fa-plus-square",
@@ -27,62 +28,67 @@ export const myBlocks = (editor) => {
         //     }
 
 
-         selectedCompId = component.attributes.attributes.id
+        //hide toolbar
+        const toggleToolbar = (val) => {
+            let value;
+            if (val === "show") value = "auto";
 
-        const hanldeToolbar = (value) => {
+            else if (val === "hide") value = "1000000px"
             $('.gjs-toolbar').each(function () {
                 this.style.right = value;
             })
-        }
+        };
 
-        const isNotWrapper = (value) => {
-            $('.gjs-toolbar').each(function () {
-                this.style.right = value;
-            })
-        }
+        //get selected comp id;
+        let selectedCompId = component.attributes.attributes.id;
 
-        if (selectedCompId === "iwgn") {
-            hanldeToolbar("100000px")
+        // check selected comp is wrapper;
+        if (selectedCompId === "irz2") {
+            component.attributes.removable = false;
+            toggleToolbar("hide")
         }
-        else {
-            isNotWrapper("auto")
-        }
+        else return toggleToolbar("show")
     });
 
-    const keyCheck = (event) => {
-        console.log("in keyCheck")
-        let deleteKey = 46;
-        console.log(event.keyCode)
-        if (event.keyCode === deleteKey) {
 
-            event.preventDefault();
-            window.confirm("dont delete")
-           
 
-        }
-        else {
-            console.log("not delete key")
-        }
-    }
-   
-    editor.on("component:remove", (component) => {
-        
 
-        console.log("component in remove", component)
-       let selectedCompoId = selectedCompId;
-       console.log(selectedCompoId)
-        if (selectedCompoId === "iwgn") {
+    // const keyCheck = (event) => {
+    //     console.log("in keyCheck")
+    //     let deleteKey = 46;
+    //     console.log(event.keyCode)
+    //     if (event.keyCode === deleteKey) {
 
-            console.log("wrapper comp cant delete")
-            document.onkeydown = keyCheck;
-        }
-        else {
-            console.log("in else")
-            // document.addEventListener("keydown", keyCheck);
+    //         event.preventDefault();
+    //         window.confirm("dont delete")
+    //     }
+    //     else {
+    //         console.log("not delete key")
+    //     }
+    // }                                                            
 
-        }
+    // editor.on("component:remove", (component) => {
 
-    })
+    //     let isRemovable=component.attributes.removable;
+    //     console.log('delete:isRemovable', isRemovable)
+    //     console.log("component in remove", component)
+    //    let selectedCompoId = component.attributes.attributes.id;;
+    //    console.log(selectedCompoId)
+    //     if (selectedCompoId && selectedCompoId.toString() === "irz2") {
+
+    //         console.log("wrapper comp cant delete");
+    //         let isRemovable=component.attributes.removable;
+    //         isRemovable=false;
+
+    //     }
+    //     else {
+    //         console.log("in else")
+    //         document.onkeydown = keyCheck;
+    //         // document.addEventListener("keydown", keyCheck);
+
+    //     }
+
+    // })
 
     // getToolbar.style.display="none";
     //   .gjs-toolbar {dispaly:"none"}
