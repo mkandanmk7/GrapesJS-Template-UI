@@ -6,9 +6,19 @@ export const myBlocks = (editor) => {
 
     // console.log("editor:", editor);
 
+//     // Listen to events
+// editor.on('canvas:dragenter', (canvas) => {
+//     console.log('canvas', canvas)
+
+// });
+
+editor.on('component:add', (comp) => { 
+    console.log('comp', comp)
+});
+
     editor.on('component:selected', component => {
         console.log(component)
-
+                
 
         //new Toolbar
         const newTool = {
@@ -18,11 +28,11 @@ export const myBlocks = (editor) => {
             id: "new-tool"
         };
         const defaultToolbar = component.get("toolbar");
-        console.log(defaultToolbar)
+        // console.log(defaultToolbar)
         const isToolbarExist = defaultToolbar.find(
             (tool) => tool.command === newTool.command);
 
-            console.log("isToolbarExist",isToolbarExist)
+            // console.log("isToolbarExist",isToolbarExist)
 
         if (!isToolbarExist) {
             defaultToolbar.unshift({
@@ -33,7 +43,8 @@ export const myBlocks = (editor) => {
             component.set("toolbar", defaultToolbar);
 
         }
-
+ 
+        
 
         //hide toolbar
         const toggleToolbar = (action) => {
@@ -52,9 +63,14 @@ export const myBlocks = (editor) => {
         // check selected comp is wrapper;
         if (selectedCompId === "irz2") {
             component.attributes.removable = false;
+
             toggleToolbar("hide")
         }
-        else return toggleToolbar("show")
+        else if(selectedCompId !== "irz2"){
+
+            toggleToolbar("show")
+            // component.attributes.draggable=false;
+        }  
     });
 
 
