@@ -1,4 +1,4 @@
-import { map } from "lodash";
+import { map, set } from "lodash";
 
 export const myBlocks = (editor) => {
 
@@ -12,65 +12,93 @@ export const myBlocks = (editor) => {
 
 // });
 
-editor.on('component:add', (comp) => { 
-    console.log('comp', comp)
-});
+// editor.on('component:add', (comp) => { 
+//     console.log('comp', comp)
+    
+// });
+
+editor.on("block:drag:",(e)=>{
+    console.log("drap drop: comp:",e)
+  let  compId=e.attributes.ccid;
+    console.log("comp: id:",compId)
+    if( compId === "irz2"){
+        console.log("if loop")
+        e.attributes.attributes.draggable=true
+    }
+    else {
+        console.log("else loop")
+        e.attributes.attributes.draggable=false;
+    }
+    
+})
 
     editor.on('component:selected', component => {
-        console.log(component)
-                
+        console.log(component);
+        console.log(component.ccid)
+        // //new Toolbar
+        // const newTool = {
+        //     icon: "fa fa-plus-square",
+        //     title: "check Toolbar",
+        //     command: "new-tool-cmd",
+        //     id: "new-tool"
+        // };
+        // const defaultToolbar = component.get("toolbar");
+        // // console.log(defaultToolbar)
+        // const isToolbarExist = defaultToolbar.find(
+        //     (tool) => tool.command === newTool.command);
 
-        //new Toolbar
-        const newTool = {
-            icon: "fa fa-plus-square",
-            title: "check Toolbar",
-            command: "new-tool-cmd",
-            id: "new-tool"
-        };
-        const defaultToolbar = component.get("toolbar");
-        // console.log(defaultToolbar)
-        const isToolbarExist = defaultToolbar.find(
-            (tool) => tool.command === newTool.command);
+        //     // console.log("isToolbarExist",isToolbarExist)
 
-            // console.log("isToolbarExist",isToolbarExist)
+        // if (!isToolbarExist) {
+        //     defaultToolbar.unshift({
+        //         id: newTool.id,
+        //         attributes: { class: newTool.icon, title: newTool.title },
+        //         command: newTool.command,
+        //     })
+        //     component.set("toolbar", defaultToolbar);
 
-        if (!isToolbarExist) {
-            defaultToolbar.unshift({
-                id: newTool.id,
-                attributes: { class: newTool.icon, title: newTool.title },
-                command: newTool.command,
-            })
-            component.set("toolbar", defaultToolbar);
+        // }
 
+        //hide toolbar second method:
+        let selectedCompId = component.attributes.attributes.id;
+        // getToolbar
+        let toolbar=component.get("toolbar");
+        console.log('toolbar', toolbar)
+        if(selectedCompId === "iskd"){
+            console.log("wrapper comp")
+            toolbar=[];
+            console.log(toolbar)
+            component.set("toolbar",toolbar)
         }
+        
  
         
 
-        //hide toolbar
-        const toggleToolbar = (action) => {
-            const toggle = {
-                "show": "auto",
-                "hide": "100000px",
-            }
-            $('.gjs-toolbar').each(function () {
-                this.style.right = toggle[action];
-            })
-        };
+        // //hide toolbar
+        // const toggleToolbar = (action) => {
+        //     const toggle = {
+        //         "show": "auto",
+        //         "hide": "100000px",
+        //     }
+        //     $('.gjs-toolbar').each(function () {
+        //         this.style.right = toggle[action];
+        //     })
+        // };
 
-        //get selected comp id;
-        let selectedCompId = component.attributes.attributes.id;
+        // //get selected comp id;
+        // let selectedCompId = component.attributes.attributes.id;
 
-        // check selected comp is wrapper;
-        if (selectedCompId === "irz2") {
-            component.attributes.removable = false;
+        // // check selected comp is wrapper;
+        // if (selectedCompId === "irz2") {
+        //     component.attributes.removable = false;
 
-            toggleToolbar("hide")
-        }
-        else if(selectedCompId !== "irz2"){
+        //     toggleToolbar("hide")
+        // }
+        // else if(selectedCompId !== "irz2"){
 
-            toggleToolbar("show")
-            // component.attributes.draggable=false;
-        }  
+        //     toggleToolbar("show")
+        //     // component.attributes.draggable=false;
+        // }  
     });
 
 
@@ -182,6 +210,9 @@ editor.on('component:add', (comp) => {
     // }
     //   })
 }
+
+
+
 
 
 
